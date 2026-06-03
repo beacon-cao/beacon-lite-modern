@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- ============================================================ -->
+    <!-- 日志格式                                                     -->
+    <!-- ============================================================ -->
+    <!-- 开发环境（带颜色高亮） -->
+    <property name="PATTERN_CONSOLE" value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | %highlight(%-5level) | %boldYellow(%thread) %boldGreen(%-40.40logger{39}) | %m%n"/>
+
+    <!-- 生产环境（纯文本，便于日志采集） -->
+    <property name="PATTERN_PRODUCTION" value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | %-5level | %thread | %-40.40logger{39} | %m%n"/>
+
+    <!-- 日志文件路径（相对路径，位于项目运行目录的 logs/ 下） -->
+    <property name="LOG_FILE_PATH" value="logs"/>
+
+    <!-- ============================================================ -->
+    <!-- Appender: 控制台                                             -->
+    <!-- ============================================================ -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${PATTERN_CONSOLE}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ============================================================ -->
+    <!-- Appender: 滚动文件                                           -->
+    <!-- ============================================================ -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--
+            文件名使用 Maven resource filtering 注入 finalName。
+            pom.xml 中需配置 <resources><resource><filtering>true</filtering>...
+            若未开启 filtering，可替换为固定名称，如：beacon-lite-jdk21.log
+        -->
+        <file>${LOG_FILE_PATH}/${project.build.finalName}.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE_PATH}/${project.build.finalName}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 保留 30 天 -->
+            <maxHistory>30</maxHistory>
+            <!-- 归档日志总大小上限，超限触发删除 -->
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${PATTERN_PRODUCTION}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ============================================================ -->
+    <!-- 日志级别                                                     -->
+    <!-- ============================================================ -->
+    <!-- 项目包：开发期 DEBUG，部署后可调整为 INFO 或通过配置覆盖 -->
+    <logger name="com.beacon" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
