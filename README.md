@@ -1,4 +1,4 @@
-# beacon-lite-jdk21
+# beacon-lite-modern
 
 > Java Maven 基础脚手架 — 拿来即用，开箱即用。
 
