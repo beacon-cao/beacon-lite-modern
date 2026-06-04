@@ -11,13 +11,13 @@
 ```bash
 # 克隆项目
 git clone <your-repo-url>
-cd beacon-lite-jdk21
+cd beacon-lite-modern
 
 # 编译并打包（生成 fat JAR）
 mvn clean package
 
 # 直接运行
-java -jar target/beacon-lite-jdk21.jar
+java -jar target/beacon-lite-modern.jar
 ```
 
 ---
@@ -44,11 +44,11 @@ java -jar target/beacon-lite-jdk21.jar
 | 模式 | 输出目标 | 格式 |
 |---|---|---|
 | **控制台** | `System.out` | 带 ANSI 颜色高亮，适合开发调试 |
-| **滚动文件** | `logs/beacon-lite-jdk21.log` | 纯文本，适合生产环境日志采集 |
+| **滚动文件** | `logs/beacon-lite-modern.log` | 纯文本，适合生产环境日志采集 |
 
 ### 日志滚动策略
 
-- 按天滚动归档（`beacon-lite-jdk21.yyyy-MM-dd.log`）
+- 按天滚动归档（`beacon-lite-modern.yyyy-MM-dd.log`）
 - 保留 **30 天**
 - 归档总大小上限 **3GB**，超限自动清理
 
@@ -107,7 +107,7 @@ mvn exec:java -Dexec.mainClass="com.beacon.BeaconMain"
 项目使用 `maven-assembly-plugin`，打包后直接生成包含所有依赖的可执行 JAR：
 
 ```
-target/beacon-lite-jdk21.jar   ← 可直接 java -jar 运行
+target/beacon-lite-modern.jar   ← 可直接 java -jar 运行
 ```
 
 JAR 已配置 `Main-Class` 清单，无需指定主类。
@@ -117,7 +117,7 @@ JAR 已配置 `Main-Class` 清单，无需指定主类。
 ## 🗂 项目结构
 
 ```
-beacon-lite-jdk21/
+beacon-lite-modern/
 ├── pom.xml                                # Maven 配置
 ├── README.md
 ├── .gitignore
@@ -147,7 +147,7 @@ beacon-lite-jdk21/
 
 ## 🆚 与 JDK 8 版本的主要区别
 
-| 项目 | beacon-lite-jdk8 | beacon-lite-jdk21 |
+| 项目 | beacon-lite-jdk8 | beacon-lite-modern |
 |---|---|---|
 | **JDK** | 8 | 21 (LTS) |
 | **Logback** | 1.3.16（JDK 8 最后兼容版） | 1.5.34（JDK 11+） |

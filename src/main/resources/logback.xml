@@ -30,7 +30,7 @@
         <!--
             文件名使用 Maven resource filtering 注入 finalName。
             pom.xml 中需配置 <resources><resource><filtering>true</filtering>...
-            若未开启 filtering，可替换为固定名称，如：beacon-lite-jdk21.log
+            若未开启 filtering，可替换为固定名称，如：beacon-lite-modern.log
         -->
         <file>${LOG_FILE_PATH}/${project.build.finalName}.log</file>
 
